@@ -5,3 +5,70 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require "faker"
+puts "Cleaning database..."
+Message.destroy_all
+User.destroy_all
+Channel.destroy_all
+
+puts "Creating restaurants..."
+
+user1 = User.new(
+    email: Faker::Internet.email,
+    password: (0..9).to_a.shuffle.take(6).join('').to_s
+  )
+user1.save!
+
+
+user2 = User.new(
+    email: Faker::Internet.email,
+    password: (0..9).to_a.shuffle.take(6).join('').to_s
+  )
+user2.save!
+
+user3 = User.new(
+    email: Faker::Internet.email,
+    password: (0..9).to_a.shuffle.take(6).join('').to_s
+  )
+user3.save!
+
+channel1 = Channel.new(name: Faker::Games::Heroes.name)
+channel1.save!
+
+channel2 = Channel.new(name: Faker::Games::Heroes.name)
+channel2.save!
+
+
+4.times do
+  message = Message.new(
+    content: Faker::Quotes::Shakespeare.as_you_like_it_quote
+  )
+  message.user = user1
+  message.channel = channel1
+  message.save!
+end
+4.times do
+  message = Message.new(
+    content: Faker::Quotes::Shakespeare.as_you_like_it_quote
+  )
+  message.user = user2
+  message.channel = channel1
+  message.save!
+end
+4.times do
+  message = Message.new(
+    content: Faker::Quotes::Shakespeare.as_you_like_it_quote
+  )
+  message.user = user3
+  message.channel = channel1
+  message.save!
+end
+3.times do
+  message = Message.new(
+    content: Faker::Quotes::Shakespeare.as_you_like_it_quote
+  )
+  message.user = user1
+  message.channel = channel2
+  message.save!
+end
+
