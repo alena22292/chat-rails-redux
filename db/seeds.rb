@@ -11,7 +11,7 @@ Message.destroy_all
 User.destroy_all
 Channel.destroy_all
 
-puts "Creating restaurants..."
+puts "Creating chatroom content..."
 
 user1 = User.new(
     email: Faker::Internet.email,
@@ -32,12 +32,19 @@ user3 = User.new(
   )
 user3.save!
 
-channel1 = Channel.new(name: Faker::Games::Heroes.name)
+# channel1 = Channel.new(name: Faker::Games::Heroes.name)
+channel1 = Channel.new(name: "coding")
 channel1.save!
 
-channel2 = Channel.new(name: Faker::Games::Heroes.name)
+# channel2 = Channel.new(name: Faker::Games::Heroes.name)
+channel2 = Channel.new(name: 'general')
 channel2.save!
 
+channel3 = Channel.new(name: 'react')
+channel3.save!
+
+channel4 = Channel.new(name: 'rails')
+channel4.save!
 
 4.times do
   message = Message.new(
