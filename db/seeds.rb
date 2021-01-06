@@ -14,6 +14,7 @@ Channel.destroy_all
 puts "Creating chatroom content..."
 
 user1 = User.new(
+    nickname: Faker::Name.name,
     email: Faker::Internet.email,
     password: (0..9).to_a.shuffle.take(6).join('').to_s
   )
@@ -21,12 +22,14 @@ user1.save!
 
 
 user2 = User.new(
+    nickname: Faker::Name.name,
     email: Faker::Internet.email,
     password: (0..9).to_a.shuffle.take(6).join('').to_s
   )
 user2.save!
 
 user3 = User.new(
+    nickname: Faker::Name.name,
     email: Faker::Internet.email,
     password: (0..9).to_a.shuffle.take(6).join('').to_s
   )

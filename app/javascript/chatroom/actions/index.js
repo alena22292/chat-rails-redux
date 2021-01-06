@@ -10,13 +10,15 @@ export function fetchMessages(channel) {
   };
 }
 
-export function createMessage(channel, author, content) {
-  const body = { author, content };
+export function createMessage(channel, content) {
+  const body = { content };
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
   const promise = fetch(`/api/v1/channels/${channel}/messages`, {
     method: 'Post',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken
     },
     body: JSON.stringify(body),
     credentials: "same-origin"

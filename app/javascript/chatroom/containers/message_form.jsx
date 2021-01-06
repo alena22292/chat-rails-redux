@@ -55,6 +55,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(reduxState) {
   return {
+    // We non longer need a currentUser
     currentUser: reduxState.currentUser,
   };
 }

@@ -20,7 +20,7 @@ const indentityReducer = (state = null, action) => state;
 
 const initialState = {
   messages: [],
-  channels: ['general', 'react', 'rails', 'coding'],
+  channels: channels
   // currentUser: `anonymous${Math.floor(10 + (Math.random() * 90))}`, // prompt("What is your username?") ||
 };
 
@@ -31,6 +31,8 @@ const reducers = combineReducers({
 });
 
 const middlewares = applyMiddleware(logger, ReduxPromise);
+const chatApp = document.getElementById('chat-app');
+const channels = JSON.parse(chatApp.dataset.channels).map(c => c.name);
 
 // render an instance of the component in the DOM
 ReactDOM.render(
@@ -42,7 +44,7 @@ ReactDOM.render(
       </Switch>
     </Router>
   </Provider>,
-  document.getElementById('chat-app')
+  chatApp
 );
 // Redirect from="/" to="/general"
 // history={history} from the router
