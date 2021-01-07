@@ -1,1 +1,1 @@
-Rails app generated with [lewagon/rails-templates](https://github.com/lewagon/rails-templates), created by the [Le Wagon coding bootcamp](https://www.lewagon.com) team.
+Rails chat is a connected chat application with Rails 5.1, React/Redux, ActionCable for real time updates and the webpacker gem.
