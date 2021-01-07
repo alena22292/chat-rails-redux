@@ -1,5 +1,6 @@
 <div id="chat-app" data-channels=<%= Channel.all.to_json %>></div>
 
-<%# content_for :after_js do %>
+<% content_for :after_js do %>
   <%#= javascript_pack_tag "chatroom" %>
-<%# end %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+<% end %>
