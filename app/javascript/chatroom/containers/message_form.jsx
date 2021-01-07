@@ -23,7 +23,7 @@ class MessageForm extends Component {
   handleSubmit = (event) => {
     // alert('Your message is: ' + this.state.value);
     event.preventDefault();
-    this.props.createMessage(this.props.channel, this.state.value);
+    this.props.createMessage(this.props.selectedChannel, this.state.value);
     this.setState({ value: '' });
   }
 
@@ -32,7 +32,7 @@ class MessageForm extends Component {
       <div>
         <form onSubmit={this.handleSubmit} className="channel-editor">
           <input
-            ref={(input) => { this.messageBox = input; }}
+            ref={ input => this.messageBox = input }
             type="text"
             value={this.state.value}
             className="form-control"
