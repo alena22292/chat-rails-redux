@@ -3,13 +3,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchMessages } from '../actions';
+import { fetchMessages, selectedChannel } from '../actions/index';
 
 class ChannelList extends Component {
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.channelFromParams !== this.props.channelFromParams) {
-      this.props.fetchMessages(nextProps.channelFromParams);
-    }
+  handleClick = (channel) => {
+    this.props.selectChannel(); // Will empty message list first
+    this.props.fetchMessages(channel);
   }
 
   renderChannel = (channel) => {
@@ -17,9 +16,9 @@ class ChannelList extends Component {
       <li
         key={channel}
         className={channel === this.props.channelFromParams ? 'active' : null}
-        role="presentation"
+        onClick={() => this.handleClick(channel)}
       >
-        <Link to={`/${channel}`}>
+        <Link to={`/channels/${channel}`}>
           #{channel}
         </Link>
       </li>
@@ -29,6 +28,7 @@ class ChannelList extends Component {
   render() {
     return (
       <div className="channels-container">
+      <span>Redux Chat</span>
         <ul>
           {this.props.channels.map(this.renderChannel)}
         </ul>
@@ -39,7 +39,7 @@ class ChannelList extends Component {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { fetchMessages },
+    { fetchMessages, selectedChannel },
     dispatch
   );
 }

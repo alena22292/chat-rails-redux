@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { createMessage } from '../actions';
+import { createMessage } from '../actions/index';
 
 class MessageForm extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class MessageForm extends Component {
   handleSubmit = (event) => {
     // alert('Your message is: ' + this.state.value);
     event.preventDefault();
-    this.props.createMessage(this.props.channel, this.props.currentUser, this.state.value);
+    this.props.createMessage(this.props.channel, this.state.value);
     this.setState({ value: '' });
   }
 
@@ -53,11 +53,4 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps(reduxState) {
-  return {
-    // We non longer need a currentUser
-    currentUser: reduxState.currentUser,
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MessageForm);
+export default connect(null, mapDispatchToProps)(MessageForm);

@@ -1,22 +1,23 @@
+
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <title>ChatRailsRedux</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width,initial-scale=1"> -->
+    <%#= csp_meta_tag %>
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
+    <%= action_cable_meta_tag %>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
-
   </head>
 
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
-
     <%= yield %>
+    <%= yield :after_js %>
   </body>
 </html>

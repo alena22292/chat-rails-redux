@@ -1,6 +1,7 @@
 // TODO: add and export your own actions
 export const SET_MESSAGES = 'SET_MESSAGES';
 export const CREATE_MESSAGE = 'CREATE_MESSAGE';
+export const CHANNEL_SELECTED = 'CHANNEL_SELECTED';
 
 export function fetchMessages(channel) {
   const promise = fetch(`/api/v1/channels/${channel}/messages`, { credentials: "same-origin" }).then(r => r.json());
@@ -14,7 +15,7 @@ export function createMessage(channel, content) {
   const body = { content };
   const csrfToken = document.querySelector('meta[name="csrf-token"]').attributes.content.value;
   const promise = fetch(`/api/v1/channels/${channel}/messages`, {
-    method: 'Post',
+    method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -31,3 +32,15 @@ export function createMessage(channel, content) {
   };
 }
 
+export function appendMessage(message) {
+  return {
+    type: CREATE_MESSAGE,
+    payload: message
+  }
+}
+
+export function selectedChannel() {
+  return {
+    type: CHANNEL_SELECTED
+  }
+}

@@ -7,32 +7,28 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { logger } from 'redux-logger';
 import ReduxPromise from 'redux-promise';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import { createHistory as history } from 'history';
 
 // internal modules
 import App from './components/app';
-// import '../assets/stylesheets/application.scss';
-
 import messagesReducer from './reducers/messages_reducer';
 
 // State and reducers
+const chatApp = document.getElementById('chat-app');
+
+const channels = JSON.parse(chatApp.dataset.channels).map(c => c.name);
 const indentityReducer = (state = null, action) => state;
 
 const initialState = {
   messages: [],
   channels: channels
-  // currentUser: `anonymous${Math.floor(10 + (Math.random() * 90))}`, // prompt("What is your username?") ||
 };
 
 const reducers = combineReducers({
   messages: messagesReducer,
   channels: indentityReducer
-  // currentUser: indentityReducer
 });
 
 const middlewares = applyMiddleware(logger, ReduxPromise);
-const chatApp = document.getElementById('chat-app');
-const channels = JSON.parse(chatApp.dataset.channels).map(c => c.name);
 
 // render an instance of the component in the DOM
 ReactDOM.render(
@@ -40,11 +36,8 @@ ReactDOM.render(
     <Router>
       <Switch>
         <Route path="/channels/:channel" component={App} />
-
       </Switch>
     </Router>
   </Provider>,
   chatApp
 );
-// Redirect from="/" to="/general"
-// history={history} from the router

@@ -13,6 +13,10 @@ Channel.destroy_all
 
 puts "Creating chatroom content..."
 
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
+
 user1 = User.new(
     nickname: Faker::Name.name,
     email: Faker::Internet.email,
