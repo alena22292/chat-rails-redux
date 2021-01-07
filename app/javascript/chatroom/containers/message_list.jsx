@@ -73,7 +73,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state) {
   return {
-    messages: state.messages,
+    messages: state.messages
   };
 }
 

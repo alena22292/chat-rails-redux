@@ -3,7 +3,6 @@ class Api::V1::MessagesController < ApplicationController
 
   def index
     messages = @channel.messages.order('created_at ASC')
-    # @email = Message.user_id.nickname
     render json: messages
   end
 
@@ -17,7 +16,6 @@ class Api::V1::MessagesController < ApplicationController
   private
 
   def set_channel
-    # Check: how can i retrieve a channel using a channel name only?
     @channel = Channel.find_by(name: params[:channel_id])
   end
 end

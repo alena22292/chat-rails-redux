@@ -2,9 +2,12 @@
 export const SET_MESSAGES = 'SET_MESSAGES';
 export const CREATE_MESSAGE = 'CREATE_MESSAGE';
 export const CHANNEL_SELECTED = 'CHANNEL_SELECTED';
+const BASE_URL = '/api/v1';
 
 export function fetchMessages(channel) {
-  const promise = fetch(`/api/v1/channels/${channel}/messages`, { credentials: "same-origin" }).then(r => r.json());
+  const url = `${BASE_URL}/channels/${channel}/messages`;
+  const promise = fetch(url, { credentials: "same-origin" }).then(r => r.json());
+
   return {
     type: SET_MESSAGES,
     payload: promise
