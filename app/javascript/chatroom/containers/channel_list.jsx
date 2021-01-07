@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { fetchMessages, selectedChannel } from '../actions/index';
+import { selectChannel, fetchMessages } from '../actions/index';
 
 class ChannelList extends Component {
   handleClick = (channel) => {
@@ -15,7 +15,7 @@ class ChannelList extends Component {
     return (
       <li
         key={channel}
-        className={channel === this.props.channelFromParams ? 'active' : null}
+        className={channel === this.props.selectedChannel ? 'active' : null}
         onClick={() => this.handleClick(channel)}
       >
         <Link to={`/channels/${channel}`}>
@@ -39,7 +39,7 @@ class ChannelList extends Component {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
-    { fetchMessages, selectedChannel },
+    { selectChannel, fetchMessages },
     dispatch
   );
 }

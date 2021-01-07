@@ -7,17 +7,16 @@ import Message from '../components/message';
 import MessageForm from '../containers/message_form';
 
 class MessageList extends Component {
-  UNSAFE_componentWillMount() {
-    this.props.fetchMessages();
+  componentWillMount() {
+    this.fetchMessages();
   }
 
-  componentDidMount() {
-    // this.refresher = setInterval(this.fetchMessages, 5000);
+  componentDidMount() { // For the first channel
     this.subscribeActionCable(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
-     if (this.props.channelFromParams != nextProps.channelFromParams) {
+  componentWillReceiveProps(nextProps) { // For after switching channels
+    if (this.props.selectedChannel != nextProps.selectedChannel) {
       this.subscribeActionCable(nextProps);
     }
   }
@@ -31,15 +30,15 @@ class MessageList extends Component {
   }
 
   fetchMessages = () => {
-    this.props.fetchMessages(this.props.channelFromParams);
+    this.props.fetchMessages(this.props.selectedChannel);
   }
 
   subscribeActionCable = (props) => {
-    App[`channel_${props.channelFromParams}`] = App.cable.subscriptions.create(
-      { channel: 'ChannelsChannel', name: props.channelFromParams },
+    App[`channel_${props.selectedChannel}`] = App.cable.subscriptions.create(
+      { channel: 'ChannelsChannel', name: props.selectedChannel },
       {
         received: (message) => {
-          if (message.channel === props.channelFromParams) {
+          if (message.channel === props.selectedChannel) {
             props.appendMessage(message);
           }
         }
@@ -47,33 +46,33 @@ class MessageList extends Component {
     );
   }
 
-  render() {
-    const messages = this.props.messages.map(message => <Message key={message.id} message={message} />);
+  render () {
     return (
       <div className="channel-container">
-        <div className="channel-title">Channel #{this.props.channelFromParams}</div>
+        <div className="channel-title">
+          <span>Channel #{this.props.selectedChannel}</span>
+        </div>
         <div className="channel-content" ref={list => this.list = list}>
           {
-            messages
+            this.props.messages.map((message) => {
+              return <Message key={message.id} {...message} />;
+            })
           }
         </div>
-        <MessageForm channel={this.props.channelFromParams} />
+        <MessageForm selectedChannel={this.props.selectedChannel} />
       </div>
     );
   }
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    { fetchMessages, appendMessage },
-    dispatch
-  );
-}
+};
 
 function mapStateToProps(state) {
   return {
     messages: state.messages
   };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchMessages, appendMessage }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageList);
